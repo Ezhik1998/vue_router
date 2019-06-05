@@ -15,15 +15,12 @@ export default {
   
   async created() {
     const {data} = await axios.get("https://swapi.co/api/films/");
-    // console.log(data);
     this.films = data.results.map(film => {
       let parse_url = film.url.split('/');
       film.id = parse_url[parse_url.length - 2];
       
       return film;
     });
-    // console.log(this.films);
-    // return this.films;
   }
   
 }

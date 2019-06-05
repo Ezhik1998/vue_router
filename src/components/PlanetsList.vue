@@ -3,13 +3,13 @@
   		<div class="panel panel-success">
   			<div class="panel-heading">
   				<div class="panel-title">
-  					<h4>Characters</h4>
+  					<h4>Planets:</h4>   
   				</div>
   			</div>
   			<div class="panel-body">
-  				<div v-for="(characterDetail, index) in details" class="col-md-4" :key="index">
-          	<router-link :to="{ name:'character', params:{id:characterDetail.id} }">{{ characterDetail.name }}</router-link>				
-  				</div>
+  				<div v-for="(planets, index) in planetsInfo" :key="`planets_${index}`" class="col-md-4"  >
+                   {{ planets.name }}			
+          	    </div>
   			</div>
   		</div>
   	</div>
@@ -17,9 +17,9 @@
 
 <script>
   export default {
-    name: 'characterList',
+    name: 'planetsList',
     props: [
-      'details',
+      'planetsInfo',
 		],
 }
   

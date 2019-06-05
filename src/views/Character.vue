@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2>This page is an character page with id {{$route.params.id}}</h2>
         <h2>{{character.name}}</h2>        
         Height: {{character.height}}<br/>
         Mass: {{character.mass}}<br/>
@@ -9,44 +8,27 @@
         Skin color: {{character.skin_color}}<br/>
         Eye color: {{character.eye_color}}<br/>
         Homeworld: {{homeInfo.name}}<br/>
-        
-        <div class = "row" >   
+
+        <div class = "row" >            
             <h4>Species:</h4>      
-            <div v-for="(specy, index) in speciesInfo" :key="`specy_${index}`"  class="col-md-4" >
-                   {{ specy.name }}			
+            <div v-for="(species, index) in speciesInfo" :key="`species_${index}`"  class="col-md-4" >
+                   {{ species.name }}			
           	</div>    
         </div> 
          
-        <div class = "row" >   
-            <h4>Films:</h4>      
-            <div v-for="(film, index) in filmsInfo" :key="`film_${index}`"  class="col-md-4" >
-                   {{ film.title }}			
-          	</div>    
+        <div class = "row" >  
+          <films-list :filmsInfo="filmsInfo"></films-list>            
         </div> 
         <div v-if ='character.vehicles && character.vehicles.length > 0'>            
-            <div class = "row" >    
-                <h4>Vehicles:</h4>     
-                <!-- <vehicles-list :vehiclesCharacter="vehiclesInfo"></vehicles-list>         -->
-                <div v-for="(vehicle, index) in vehiclesInfo" :key="`vehicle_${index}`"   class="col-md-4" >
-                   {{ vehicle.name }}			
-          		</div>
+            <div class = "row" >
+              <vehicles-list :vehiclesInfo="vehiclesInfo"></vehicles-list>         
             </div>
         </div>
-        <div v-if ='character.starships && character.starships.length > 0'>
-            
+        <div v-if ='character.starships && character.starships.length > 0'>            
             <div class = "row" >     
-                <h4>StarShips:</h4>    
-                <div v-for="(ship, index) in shipsInfo" :key="`film_${index}`"  class="col-md-4" >
-                   {{ ship.name }}			
-          		</div>    
-            </div>
-        </div>
-
-
-        <!-- <div class="row">
-	  	      <character-details :details="characterDetails"></character-details>
-	      </div> -->
-
+                <ships-list :shipsInfo="shipsInfo"></ships-list>  
+          	</div>    
+        </div>    
         <router-link to="/">Back</router-link>
     </div>
 </template>
@@ -54,7 +36,9 @@
 
 <script>
 import axios from 'axios';
-
+import FilmsList from '@/components/FilmAppeared';
+import VehiclesList from '@/components/VehiclesList';
+import ShipsList from '@/components/StarshipsList'
 export default {
   data: () => ({      
       character: [],  
@@ -63,7 +47,13 @@ export default {
       shipsInfo: [],
       homeInfo: [],
       speciesInfo: [],
+      
   }), 
+  components: {
+    FilmsList,
+    VehiclesList,
+    ShipsList,     
+  },
   
   async created() {
     const {data} = await axios.get('https://swapi.co/api/people/'+this.$route.params.id);
@@ -79,8 +69,9 @@ export default {
           })
         }); 
 
-    this.character.species.forEach((specyUrl) => {
-          fetch(specyUrl).then((response) => {
+
+    this.character.species.forEach((speciesUrl) => {
+          fetch(speciesUrl).then((response) => {
             return response.json();
           }).then((detail) => {
             let parse_url = detail.url.split('/');
@@ -88,6 +79,7 @@ export default {
             this.speciesInfo.push(detail);                       
           })
         }); 
+        
 
     this.character.vehicles.forEach((vehicleUrl) => {
           fetch(vehicleUrl).then((response) => {
@@ -114,8 +106,7 @@ export default {
           }).then((detail) => {
             let parse_url = detail.url.split('/');
             detail.id = parse_url[parse_url.length - 2];
-            this.homeInfo = detail;   
-                              
+            this.homeInfo = detail;                                 
           })
     }
         // console.log(this.vehiclesInfo);

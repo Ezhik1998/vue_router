@@ -1,5 +1,5 @@
 <template>
-	<div class="col-md-8">
+	<div class="col">
   		<div class="panel panel-success">
   			<div class="panel-heading">
   				<div class="panel-title">
@@ -7,10 +7,10 @@
   				</div>
   			</div>
   			<div class="panel-body">
-  				<div v-for="(species, index) in speciesInfo" :key="`species_${index}`"  class="col-md-4" >
+  				<div v-for="(species, index) in speciesInfo" :key="`species_${index}`"   >
                     <router-link :to="{ name:'species', params:{id:species.id} }">{{ species.name }}</router-link>				
                    			
-          	</div>
+          		</div>
   			</div>
   		</div>
   	</div>
@@ -25,3 +25,11 @@
 }
   
 </script>
+
+<style lang="scss">
+.col {
+  margin-top: 20px;
+  margin-bottom: 2px;
+}
+
+</style>

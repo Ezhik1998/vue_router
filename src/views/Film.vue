@@ -1,36 +1,39 @@
 <template>
-    <div>
-        <h2>{{film.title}}</h2>
+  <div>
+        <h3><b>{{film.title}}</b></h3>
         <p v-if="film.director">
-        Director: {{film.director}}<br/>
-        Released: {{film.release_date}}<br/>
+        <b>Director:</b> {{film.director}}<br/>
+        <b>Released:</b> {{film.release_date}}<br/>
         </p>     
-        <div class = "row">
+        <div class = "crawl">
           {{film.opening_crawl}}
         </div>   
-        <div class="row">
+        <div class="characters">
 	  	      <character-list :details="characterDetails"></character-list>
 	      </div>
-                  
-        <div class = "row" >     
-            <ships-list :shipsInfo="shipsInfo"></ships-list>  
-        </div>    
-        
-        
-        <div class = "row">
-          <planets-list :planetsInfo="planetsInfo"></planets-list>          
-        </div>
 
-        <div class = "row" >
-              <vehicles-list :vehiclesInfo="vehiclesInfo"></vehicles-list>         
+        <div class="wrapper">
+          <div class="row">
+            <div class = "col" >     
+              <ships-list :shipsInfo="shipsInfo"></ships-list>  
+            </div>            
+                  
+            <div class = "col">
+              <planets-list :planetsInfo="planetsInfo"></planets-list>          
             </div>
 
+            <div class = "col" v-if ='film.vehicles && film.vehicles.length > 0' >
+              <vehicles-list :vehiclesInfo="vehiclesInfo"></vehicles-list>         
+            </div>
+          </div>
+        </div>
+        
         <div class="row">
 	  	      <species-list :speciesInfo="speciesDetails"></species-list>
 	      </div>
         <p/>
-        <router-link to="/">Back</router-link>
-    </div>
+        <router-link class = "back" to="/">Back</router-link>
+  </div>
 </template>
 
 <script>
@@ -51,11 +54,11 @@ export default {
 
   }), 
   components: {    
-    CharacterList, 
-    SpeciesList, 
-    ShipsList,
-    VehiclesList,
-    PlanetsList
+      CharacterList, 
+      SpeciesList, 
+      ShipsList,
+      VehiclesList,
+      PlanetsList
   },
   
   async created() {
@@ -114,3 +117,43 @@ export default {
   }  
 }
 </script>
+
+<style lang="scss">
+h3 {
+  color: yellow;
+}
+
+.wrapper {
+  max-width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0px 15px ;
+  text-align: center;  
+}
+
+.wrapper .col {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.crawl {
+  margin: 10px;
+  text-align: justify;
+}
+
+.back {  
+  padding: 10px 15px;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+  color:white;
+  background-color: yellow;
+  font-size: 20px;  
+  
+  &:hover {
+    color:yellow;
+    background-color: white;
+    font-size: 20px;
+  }
+}
+</style>

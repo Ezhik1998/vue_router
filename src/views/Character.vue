@@ -1,36 +1,36 @@
 <template>
-    <div>
-        <h2>{{character.name}}</h2>        
-        Height: {{character.height}}<br/>
-        Mass: {{character.mass}}<br/>
-        Birth: {{character.birth_year}}<br/>
-        Hair color: {{character.hair_color}}<br/>
-        Skin color: {{character.skin_color}}<br/>
-        Eye color: {{character.eye_color}}<br/>
-        Homeworld: {{homeInfo.name}}<br/>
+  <div>
+      <div class = 'desc'>
+        <h3><b>{{character.name}}</b></h3>        
+        <b>Height:</b> {{character.height}}<br/>
+        <b>Mass:</b> {{character.mass}}<br/>
+        <b>Birth:</b> {{character.birth_year}}<br/>
+        <b>Hair color:</b> {{character.hair_color}}<br/>
+        <b>Skin color:</b> {{character.skin_color}}<br/>
+        <b>Eye color:</b> {{character.eye_color}}<br/>
+        <b>Homeworld:</b> {{homeInfo.name}}<br/>
+      </div>
 
-        <div class = "row" >            
-            <h4>Species:</h4>      
-            <div v-for="(species, index) in speciesInfo" :key="`species_${index}`"  class="col-md-4" >
-                   {{ species.name }}			
-          	</div>    
-        </div> 
+      <div  v-if ='character.species && character.species.length > 0' class = "col" >            
+        <h4>Species:</h4>      
+          <div v-for="(species, index) in speciesInfo" :key="`species_${index}`" >
+            {{ species.name }}			
+          </div>        
          
-        <div class = "row" >  
+        <div class = "filmApp">  
           <films-list :filmsInfo="filmsInfo"></films-list>            
         </div> 
-        <div v-if ='character.vehicles && character.vehicles.length > 0'>            
-            <div class = "row" >
-              <vehicles-list :vehiclesInfo="vehiclesInfo"></vehicles-list>         
-            </div>
+
+        <div v-if ='character.vehicles && character.vehicles.length > 0' class = "vehicle">            
+          <vehicles-list :vehiclesInfo="vehiclesInfo"></vehicles-list>         
         </div>
-        <div v-if ='character.starships && character.starships.length > 0'>            
-            <div class = "row" >     
-                <ships-list :shipsInfo="shipsInfo"></ships-list>  
-          	</div>    
-        </div>    
-        <router-link to="/">Back</router-link>
-    </div>
+
+        <div v-if ='character.starships && character.starships.length > 0' class = "ship">            
+          <ships-list :shipsInfo="shipsInfo"></ships-list>       
+        </div>   
+      </div>  
+      <router-link class = "back" to="/">Back</router-link>
+  </div>
 </template>
 
 
@@ -41,13 +41,12 @@ import VehiclesList from '@/components/VehiclesList';
 import ShipsList from '@/components/StarshipsList'
 export default {
   data: () => ({      
-      character: [],  
-      filmsInfo: [],
-      vehiclesInfo: [],
-      shipsInfo: [],
-      homeInfo: [],
-      speciesInfo: [],
-      
+    character: [],  
+    filmsInfo: [],
+    vehiclesInfo: [],
+    shipsInfo: [],
+    homeInfo: [],
+    speciesInfo: [],      
   }), 
   components: {
     FilmsList,
@@ -109,7 +108,34 @@ export default {
             this.homeInfo = detail;                                 
           })
     }
-        // console.log(this.vehiclesInfo);
 }   
-
 </script>
+
+<style lang="scss">
+h3 {
+  color: yellow
+}
+.filmApp, .ship, .vehicle{
+  margin-top:15px;
+  margin-bottom: 10px;
+}
+.desc {
+  margin-bottom: 10px;
+}
+
+.back {  
+  padding: 10px 15px;
+  border: 1px solid whitesmoke;
+  border-radius: 5px;
+  color:white;
+  background-color: yellow;
+  font-size: 20px; 
+  margin-top: 15px; 
+  
+  &:hover {
+    color:yellow;
+    background-color: white;
+    font-size: 20px;
+  }
+}
+</style>

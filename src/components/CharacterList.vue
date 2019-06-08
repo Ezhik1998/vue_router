@@ -1,5 +1,5 @@
 <template>
-	<div class="col-md-8">
+	<div class="col">
   		<div class="panel panel-success">
   			<div class="panel-heading">
   				<div class="panel-title">
@@ -7,8 +7,8 @@
   				</div>
   			</div>
   			<div class="panel-body">
-  				<div v-for="(characterDetail, index) in details" class="col-md-4" :key="index">
-          	<router-link :to="{ name:'character', params:{id:characterDetail.id} }">{{ characterDetail.name }}</router-link>				
+  				<div v-for="(characterDetail, index) in details"  :key="index">
+          			<router-link :to="{ name:'character', params:{id:characterDetail.id} }">{{ characterDetail.name }}</router-link>				
   				</div>
   			</div>
   		</div>

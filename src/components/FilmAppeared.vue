@@ -1,5 +1,5 @@
 <template>
-	<div class="col-md-8">
+	<div class="col">
   		<div class="panel panel-success">
   			<div class="panel-heading">
   				<div class="panel-title">
@@ -7,7 +7,7 @@
   				</div>
   			</div>
   			<div class="panel-body">  				     
-                <div v-for="(film, index) in filmsInfo" :key="`film_${index}`"  class="col-md-4" >
+                <div v-for="(film, index) in filmsInfo" :key="`film_${index}`" >
                     {{ film.title }}			
                 </div>    
           	</div>  			

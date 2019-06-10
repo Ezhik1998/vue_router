@@ -23,7 +23,7 @@ export default {
     }),
 
     async created() {
-    var {data} = await axios.get('https://swapi.co/api/species/'+this.$route.params.id);
+    var {data} = await axios.get('https://swapi.co/api/species/'+this.$route.params.id + '/');
     this.species = data 
     }    
 }

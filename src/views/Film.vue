@@ -62,7 +62,7 @@ export default {
   },
   
   async created() {
-    var {data} = await axios.get('https://swapi.co/api/films/'+this.$route.params.id);
+    var {data} = await axios.get('https://swapi.co/api/films/'+this.$route.params.id + '/');
     this.film = data      
 
     this.film.characters.forEach((characterUrl) => {
